@@ -10,48 +10,38 @@ import { interval } from 'rxjs';
 })
 export class ValuesDisplayComponent implements OnInit {
 
-  @Input() TeaBags: Number;
-  @Input() TeaLeaves: Number;
+  @Input('teaStats') teaStats: { teaBags: number, teaLeaves: number, money: number, teaBagPrice: number, teaBagDemand: number };
 
   constructor() { };
 
 
-
-
-
-
-
-  
-
-  ngOnInit(): void {  
+  ngOnInit(): void {
     interval(1000).subscribe(x => {
-    this.sellTeaBag();
-    
-
-  });
+      this.sellTeaBag();
+    });
   }
 
 
-  AddTeaBag(){
-    GlobalValues.
-    
-    if(TeaLeaves >= 5)
+  AddTeaBag() {
+    //GlobalValues.
+
+    /*if(TeaLeaves >= 5)
     {
       
       GlobalValues.TeaLeaves -=5;
       this.TeaBags ++;
-    }
-    
+    }*/
+
   }
 
-  sellTeaBag(){
-    console.log("called bag")
-    if(this.TeaBags > 0){
+  sellTeaBag() {
+    console.log("try to sell teabag")
+    /**if(this.TeaBags > 0){
       this.TeaBags --;
-      /**this.cash += this.teaBagPrice;
+      this.cash += this.teaBagPrice;
       this.cashDisplay = this.cash.toFixed(2);
-      **/
-    }
+      
+    }**/
   }
 
 }
