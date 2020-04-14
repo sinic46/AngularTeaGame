@@ -1,6 +1,20 @@
 <h1 class="text-center">Tea Game!</h1>
 <hr>
-<div class="col-xs-12">
-    <app-values-display [teaStats]=getStats()></app-values-display>
+<app-values-display [teaStats]=getStats()></app-values-display>
+
+<app-main-buttons (teaBagCreated)="onTeaBagMade($event)" (PriceChange)="onPriceChanged($event)"
+    (buyLeaves)="onBuyingTeaLeaves($event)" (buyFilters)="onBuyingTeaFilters($event)" [teaStats]=getStats()>
+</app-main-buttons>
+<div class="container">
+    <div class="row">
+        <div class="col-md">
+            <app-teabag-generators [teaStats]=getStats() [hidden]="!autoTeaBagMakers" (AlterMoney)="onMoneyChange($event)" (teaBagCreated)="onTeaBagMade($event)"></app-teabag-generators>
+        </div>
+        <div class="col-md">
+            
+        </div>
+        <div class="col-md">
+            
+        </div>
+    </div>
 </div>
-<app-get-tea-leaves></app-get-tea-leaves>

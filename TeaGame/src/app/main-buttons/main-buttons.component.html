@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md">
+            <button [disabled]="canMakeTeaBag()" class="btn btn-outline-primary" (click)="MakeTeaBag()">make a tea bag</button>
+        </div>
+        <div class="col-md">
+            <button [disabled]="canBuyLeaves()" class="btn btn-outline-primary" (click)="buyTeaLeaves()">buy tea leaves</button>
+        </div>
+        <div class="col-md">
+            <button [disabled]="canBuyfilter()" class="btn btn-outline-primary" (click)="buyTeaFilters()">Buy filter paper</button>
+        </div>
+        <div class="col-md">
+            <div class="btn-group" role="group">
+                <button class="btn btn-outline-primary" (click)="ChangePrice(-0.1)">-</button>
+                <button disabled class="btn btn-outline-primary">Tea bag price</button>
+                <button class="btn btn-outline-primary" (click)="ChangePrice(0.1)">+</button>
+            </div>
+
+        </div>
+
+    </div>
+    <hr>
+</div>

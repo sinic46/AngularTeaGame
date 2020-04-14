@@ -10,7 +10,10 @@ import { interval } from 'rxjs';
 })
 export class ValuesDisplayComponent implements OnInit {
 
-  @Input('teaStats') teaStats: { teaBags: number, teaLeaves: number, money: number, teaBagPrice: number, teaBagDemand: number };
+  @Input('teaStats') teaStats: {
+    money: number, teaBags: number, teaBagPrice: number, teaBagDemand: number, teaLeaves: number,
+    teaLeafPrice: number, teaFilterPaper: number, teaFilterPaperPrice: number
+  };
 
   constructor() { };
 
@@ -35,7 +38,7 @@ export class ValuesDisplayComponent implements OnInit {
   }
 
   sellTeaBag() {
-    console.log("try to sell teabag")
+    //console.log("try to sell teabag")
     /**if(this.TeaBags > 0){
       this.TeaBags --;
       this.cash += this.teaBagPrice;
