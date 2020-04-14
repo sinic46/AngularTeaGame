@@ -8,6 +8,8 @@ import { GetTeaLeavesComponent } from './get-tea-leaves/get-tea-leaves.component
 import { TeaGameComponent } from './tea-game/tea-game.component';
 import { MainButtonsComponent } from './main-buttons/main-buttons.component';
 import { TeabagGeneratorsComponent } from './tea-game/teabag-generators/teabag-generators.component';
+import { MarketDeptComponent } from './market-dept/market-dept.component';
+import { EngineerDeptComponent } from './engineer-dept/engineer-dept.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { TeabagGeneratorsComponent } from './tea-game/teabag-generators/teabag-g
     GetTeaLeavesComponent,
     TeaGameComponent,
     MainButtonsComponent,
-    TeabagGeneratorsComponent
+    TeabagGeneratorsComponent,
+    MarketDeptComponent,
+    EngineerDeptComponent
   ],
   imports: [
     BrowserModule,

@@ -37,7 +37,7 @@ export class TeabagGeneratorsComponent implements OnInit {
   CreateNewTeaBagGenerator() {
 
     if (this.teaStats.money > this.GeneratorPrice) {
-      this.teaGenerators.push({ name: "Auto Teabag " + (this.teaGenerators.length + 1).toString(), TBPS: 1, LeavesUsed: 5, FiltersUsed: 4 })
+      this.teaGenerators.push({ name: "Auto bagga " + (this.teaGenerators.length + 1).toString(), TBPS: 1, LeavesUsed: 5, FiltersUsed: 4 })
       this.AlterMoney.emit({ Value: (this.GeneratorPrice * -1) });
     } else {
       console.log("generator failed");
@@ -55,9 +55,9 @@ export class TeabagGeneratorsComponent implements OnInit {
 
       const teaFiltersUsedArr = this.teaGenerators.map(i => i.FiltersUsed);
       var teaFiltersUsed = teaFiltersUsedArr.reduce((a, b) => a + b, 0)
-      console.log(teaBagsMade);
-      console.log("filters used :" + teaFiltersUsed);
-      console.log("leaves used :" + teaLeavesUsed);
+      //console.log(teaBagsMade);
+      //console.log("filters used :" + teaFiltersUsed);
+      //console.log("leaves used :" + teaLeavesUsed);
 
       this.teaBagCreated.emit({teaBagsMade: teaBagsMade, LeafCost:teaLeavesUsed, FilterCost: teaFiltersUsed});
       

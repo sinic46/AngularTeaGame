@@ -1,15 +1,18 @@
 <div class="container">
     <div class="row">
-        <div class="col-md">
-            <button [disabled]="canMakeTeaBag()" class="btn btn-outline-primary" (click)="MakeTeaBag()">make a tea bag</button>
+        <div class="col-md-3 col-sm-6 my-xs-2">
+            <button class="my-xs-2" [disabled]="canMakeTeaBag()" class="btn btn-outline-primary" (click)="MakeTeaBag()">make a tea
+                bag</button>
         </div>
-        <div class="col-md">
-            <button [disabled]="canBuyLeaves()" class="btn btn-outline-primary" (click)="buyTeaLeaves()">buy tea leaves</button>
+        <div class="col-md-3 col-sm-6 my-xs-2">
+            <button class="my-xs-2" [disabled]="canBuyLeaves()" class="btn btn-outline-primary" (click)="buyTeaLeaves()">buy tea
+                leaves</button>
         </div>
-        <div class="col-md">
-            <button [disabled]="canBuyfilter()" class="btn btn-outline-primary" (click)="buyTeaFilters()">Buy filter paper</button>
+        <div class="col-md-3 col-sm-6">
+            <button class="my-xs-2" [disabled]="canBuyfilter()" class="btn btn-outline-primary" (click)="buyTeaFilters()">Buy filter
+                paper</button>
         </div>
-        <div class="col-md">
+        <div class="col-md-3 col-sm-12">
             <div class="btn-group" role="group">
                 <button class="btn btn-outline-primary" (click)="ChangePrice(-0.1)">-</button>
                 <button disabled class="btn btn-outline-primary">Tea bag price</button>
@@ -17,7 +20,6 @@
             </div>
 
         </div>
-
     </div>
     <hr>
 </div>

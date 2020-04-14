@@ -5,16 +5,16 @@
 <app-main-buttons (teaBagCreated)="onTeaBagMade($event)" (PriceChange)="onPriceChanged($event)"
     (buyLeaves)="onBuyingTeaLeaves($event)" (buyFilters)="onBuyingTeaFilters($event)" [teaStats]=getStats()>
 </app-main-buttons>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md">
+        <div class="col-md-4">
             <app-teabag-generators [teaStats]=getStats() [hidden]="!autoTeaBagMakers" (AlterMoney)="onMoneyChange($event)" (teaBagCreated)="onTeaBagMade($event)"></app-teabag-generators>
         </div>
-        <div class="col-md">
-            
+        <div class="col-md-4">
+            <app-market-dept></app-market-dept>
         </div>
-        <div class="col-md">
-            
+        <div class="col-md-4">
+            <app-engineer-dept></app-engineer-dept>
         </div>
     </div>
 </div>

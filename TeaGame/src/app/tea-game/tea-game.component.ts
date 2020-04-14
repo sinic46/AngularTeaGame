@@ -13,7 +13,7 @@ export class TeaGameComponent implements OnInit {
   title = 'TeaGame';
 
   /* visable variables */
-  TeaBags: number = 10;
+  TeaBags: number = 0;
   teaBagPrice: number = 1.5;
   teaBagDemand: number = 30;
 
@@ -25,8 +25,10 @@ export class TeaGameComponent implements OnInit {
   money: number = 100.00;
 
   /* system used variables */
-  totalTeaBagsMade: number = 19;
-  autoTeaBagMakers: boolean = false;
+  totalTeaBagsMade: number = 0;
+  autoTeaBagMakers: boolean = true;
+  EngineerDept: boolean = false;
+  MarketingDept: boolean = false;
 
 
   constructor() {
@@ -44,7 +46,15 @@ export class TeaGameComponent implements OnInit {
   }
 
   developmentTree() {
-    if (this.totalTeaBagsMade > 20) {
+    if(this.totalTeaBagsMade > 200){
+      this.MarketingDept = true
+      console.log("marketing on!");
+      
+    }else if(this.totalTeaBagsMade > 100){
+      this.EngineerDept = true
+      console.log("engineering on!");
+      
+    }else if (this.totalTeaBagsMade > 20) {
       console.log("they are ready. . . .");
       this.autoTeaBagMakers = true;
     }
@@ -103,8 +113,12 @@ export class TeaGameComponent implements OnInit {
   onPriceChanged(priceData: { PriceChange: number }) {
 
     this.teaBagPrice += priceData.PriceChange
-
     this.teaBagPrice = Math.round(this.teaBagPrice * 100) / 100;
+    if(priceData.PriceChange > 0){
+      this.teaBagDemand -= 2;
+    }else{
+      this.teaBagDemand += 2;
+    }
 
   }
 
