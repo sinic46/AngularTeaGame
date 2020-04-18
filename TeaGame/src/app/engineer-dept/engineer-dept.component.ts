@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-engineer-dept',
@@ -7,9 +7,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EngineerDeptComponent implements OnInit {
 
+  @Input('EngineerStats') EngineerStats: {
+    autoTeaBagMakers: boolean
+    , TBMMaxSpeed: number
+    , TBMCreateSpeed: number
+    , TBMUpgradeSpeedPrice: number
+    , TBMMaxLeafLevel: number
+    , TBMCreateLeafLevel: number
+    , TBMUpgradeLeafPrice: number
+    , TBMMaxFilterLevel: number
+    , TBMCreateFilterLevel: number
+    , TBMUpgradeFilterPrice: number
+  };
+
+  @Input('teaStats') teaStats: {
+    money: number
+    , teaBags: number
+    , teaBagPrice: number
+    , teaBagDemand: number
+    , teaLeaves: number
+    , teaLeafPrice: number
+    , teaFilterPaper: number
+    , teaFilterPaperPrice: number
+  };
+
+  @Output() ResearchValueUpgrade = new EventEmitter<{ Research: string}>();
+
   constructor() { }
 
+
+
   ngOnInit(): void {
+  }
+
+  researchUpdate(ResearchArea: string){
+    this.ResearchValueUpgrade.emit({Research:ResearchArea})
   }
 
 }

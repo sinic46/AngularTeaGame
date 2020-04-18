@@ -16,6 +16,7 @@ export class TeaGameComponent implements OnInit {
   TeaBags: number = 0;
   teaBagPrice: number = 1.5;
   teaBagDemand: number = 30;
+  totalTeaBagsMade: number = 0;
 
   TeaLeaves: number = 500;
   teaLeafPrice: number = 1.5;
@@ -25,9 +26,20 @@ export class TeaGameComponent implements OnInit {
   money: number = 100.00;
 
   /* system used variables */
-  totalTeaBagsMade: number = 0;
+  
+  /* generator variables */
   autoTeaBagMakers: boolean = true;
-  EngineerDept: boolean = false;
+  TBMMaxSpeed: number = 1
+  TBMCreateSpeed:number = 1 
+  TBMUpgradeSpeedPrice: number = 25
+  TBMMaxLeafLevel: number = 1
+  TBMCreateLeafLevel: number = 1
+  TBMUpgradeLeafPrice: number = 25
+  TBMMaxFilterLevel: number = 1
+  TBMCreateFilterLevel: number = 1
+  TBMUpgradeFilterPrice: number = 25
+
+  EngineerDept: boolean = true;
   MarketingDept: boolean = false;
 
 
@@ -75,6 +87,21 @@ export class TeaGameComponent implements OnInit {
     }
   }
 
+  getEngineerStats(){
+  return{
+    autoTeaBagMakers: this.autoTeaBagMakers
+  , TBMMaxSpeed: this.TBMMaxSpeed
+  , TBMCreateSpeed: this.TBMCreateSpeed
+  , TBMUpgradeSpeedPrice: this.TBMUpgradeSpeedPrice
+  , TBMMaxLeafLevel: this.TBMMaxLeafLevel
+  , TBMCreateLeafLevel: this.TBMCreateLeafLevel
+  , TBMUpgradeLeafPrice: this.TBMUpgradeLeafPrice
+  , TBMMaxFilterLevel: this.TBMMaxFilterLevel
+  , TBMCreateFilterLevel: this.TBMCreateFilterLevel
+  , TBMUpgradeFilterPrice: this.TBMUpgradeFilterPrice
+  }
+}
+
   onMoneyChange(moneyChangeData:{Value: number}) {
     this.money += moneyChangeData.Value;
     this.money = Math.round(this.money * 100) / 100;
@@ -88,6 +115,21 @@ export class TeaGameComponent implements OnInit {
 
     }
 
+  }
+
+  ResearchUpgrade(ResearchData:{Research}){
+    if(ResearchData.Research =="Speed"){
+      console.log("speed boost");
+      
+    }
+    else if(ResearchData.Research =="Leaf"){
+      console.log("Leaf boost");
+      
+    }
+    else if(ResearchData.Research =="Filter"){
+      console.log("filter boost");
+      
+    }
   }
 
   onBuyingTeaFilters(buyingFilterData: {}) {

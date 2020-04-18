@@ -19,8 +19,12 @@
     "@angular/platform-browser": "~9.0.2",
     "@angular/platform-browser-dynamic": "~9.0.2",
     "@angular/router": "~9.0.2",
-    "bootstrap": "^4.4.1",
+    "angular-fontawesome": "^1.0.0",
+    "bootstrap": "^4.3.1",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.5.0",
     "ngx-bootstrap": "^5.6.1",
+    "popper.js": "^1.16.1",
     "rxjs": "^6.5.5",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

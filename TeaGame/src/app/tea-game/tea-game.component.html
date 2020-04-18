@@ -1,4 +1,13 @@
-<h1 class="text-center">Tea Game!</h1>
+<div>
+    <div class="float-md-center">
+        <h1 class="text-center">Tea Game! <h3 class="float-md-right p-3">Total Teabags Made: {{totalTeaBagsMade}}</h3></h1>
+        
+    </div>
+    <div class="">
+        
+    </div>
+</div>
+
 <hr>
 <app-values-display [teaStats]=getStats()></app-values-display>
 
@@ -8,13 +17,14 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
-            <app-teabag-generators [teaStats]=getStats() [hidden]="!autoTeaBagMakers" (AlterMoney)="onMoneyChange($event)" (teaBagCreated)="onTeaBagMade($event)"></app-teabag-generators>
+            <app-teabag-generators [teaStats]=getStats() [EngineerStats]=getEngineerStats() [hidden]="!autoTeaBagMakers"
+                (AlterMoney)="onMoneyChange($event)" (teaBagCreated)="onTeaBagMade($event)"></app-teabag-generators>
         </div>
         <div class="col-md-4">
-            <app-market-dept></app-market-dept>
+            <app-engineer-dept [hidden]="!EngineerDept" [EngineerStats]=getEngineerStats() [teaStats]=getStats() (ResearchValueUpgrade)="ResearchUpgrade($event)"></app-engineer-dept>
         </div>
         <div class="col-md-4">
-            <app-engineer-dept></app-engineer-dept>
+            <app-market-dept [hidden]="!MarketingDept"></app-market-dept>
         </div>
     </div>
 </div>

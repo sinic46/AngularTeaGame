@@ -29,9 +29,25 @@ export class TeabagGeneratorsComponent implements OnInit {
   @Output() teaBagCreated = new EventEmitter<{ teaBagsMade: number, LeafCost: number, FilterCost: number }>();
   @Output() AlterMoney = new EventEmitter<{ Value: number }>();
 
+  @Input('EngineerStats') EngineerStats: {
+    autoTeaBagMakers: boolean
+    , TBMMaxSpeed: number
+    , TBMCreateSpeed: number
+    , TBMMaxLeafLevel: number
+    , TBMCreateLeafLevel: number
+    , TBMMaxFilterLevel: number
+    , TBMCreateFilterLevel: number
+  };
+
   @Input('teaStats') teaStats: {
-    money: number, teaBags: number, teaBagPrice: number, teaBagDemand: number, teaLeaves: number,
-    teaLeafPrice: number, teaFilterPaper: number, teaFilterPaperPrice: number
+    money: number
+    , teaBags: number
+    , teaBagPrice: number
+    , teaBagDemand: number
+    , teaLeaves: number
+    , teaLeafPrice: number
+    , teaFilterPaper: number
+    , teaFilterPaperPrice: number
   };
 
   CreateNewTeaBagGenerator() {
@@ -59,11 +75,11 @@ export class TeabagGeneratorsComponent implements OnInit {
       //console.log("filters used :" + teaFiltersUsed);
       //console.log("leaves used :" + teaLeavesUsed);
 
-      this.teaBagCreated.emit({teaBagsMade: teaBagsMade, LeafCost:teaLeavesUsed, FilterCost: teaFiltersUsed});
-      
-    }else{
+      this.teaBagCreated.emit({ teaBagsMade: teaBagsMade, LeafCost: teaLeavesUsed, FilterCost: teaFiltersUsed });
+
+    } else {
       console.log("no generators");
-      
+
     }
 
 
