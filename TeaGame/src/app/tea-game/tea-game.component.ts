@@ -26,15 +26,17 @@ export class TeaGameComponent implements OnInit {
   money: number = 100.00;
 
   /* system used variables */
-  
+
   /* generator variables */
   autoTeaBagMakers: boolean = true;
-  TBMMaxSpeed: number = 1
-  TBMCreateSpeed:number = 1 
+  TBMMaxSpeedLevel: number = 1
+  TBMCreateSpeed: number = 1
   TBMUpgradeSpeedPrice: number = 25
+
   TBMMaxLeafLevel: number = 1
   TBMCreateLeafLevel: number = 1
   TBMUpgradeLeafPrice: number = 25
+  
   TBMMaxFilterLevel: number = 1
   TBMCreateFilterLevel: number = 1
   TBMUpgradeFilterPrice: number = 25
@@ -58,15 +60,15 @@ export class TeaGameComponent implements OnInit {
   }
 
   developmentTree() {
-    if(this.totalTeaBagsMade > 200){
+    if (this.totalTeaBagsMade > 200) {
       this.MarketingDept = true
       console.log("marketing on!");
-      
-    }else if(this.totalTeaBagsMade > 100){
+
+    } else if (this.totalTeaBagsMade > 100) {
       this.EngineerDept = true
       console.log("engineering on!");
-      
-    }else if (this.totalTeaBagsMade > 20) {
+
+    } else if (this.totalTeaBagsMade > 20) {
       console.log("they are ready. . . .");
       this.autoTeaBagMakers = true;
     }
@@ -87,22 +89,22 @@ export class TeaGameComponent implements OnInit {
     }
   }
 
-  getEngineerStats(){
-  return{
-    autoTeaBagMakers: this.autoTeaBagMakers
-  , TBMMaxSpeed: this.TBMMaxSpeed
-  , TBMCreateSpeed: this.TBMCreateSpeed
-  , TBMUpgradeSpeedPrice: this.TBMUpgradeSpeedPrice
-  , TBMMaxLeafLevel: this.TBMMaxLeafLevel
-  , TBMCreateLeafLevel: this.TBMCreateLeafLevel
-  , TBMUpgradeLeafPrice: this.TBMUpgradeLeafPrice
-  , TBMMaxFilterLevel: this.TBMMaxFilterLevel
-  , TBMCreateFilterLevel: this.TBMCreateFilterLevel
-  , TBMUpgradeFilterPrice: this.TBMUpgradeFilterPrice
+  getEngineerStats() {
+    return {
+      autoTeaBagMakers: this.autoTeaBagMakers
+      , TBMMaxSpeedLevel: this.TBMMaxSpeedLevel
+      , TBMCreateSpeed: this.TBMCreateSpeed
+      , TBMUpgradeSpeedPrice: this.TBMUpgradeSpeedPrice
+      , TBMMaxLeafLevel: this.TBMMaxLeafLevel
+      , TBMCreateLeafLevel: this.TBMCreateLeafLevel
+      , TBMUpgradeLeafPrice: this.TBMUpgradeLeafPrice
+      , TBMMaxFilterLevel: this.TBMMaxFilterLevel
+      , TBMCreateFilterLevel: this.TBMCreateFilterLevel
+      , TBMUpgradeFilterPrice: this.TBMUpgradeFilterPrice
+    }
   }
-}
 
-  onMoneyChange(moneyChangeData:{Value: number}) {
+  onMoneyChange(moneyChangeData: { Value: number }) {
     this.money += moneyChangeData.Value;
     this.money = Math.round(this.money * 100) / 100;
   }
@@ -117,19 +119,53 @@ export class TeaGameComponent implements OnInit {
 
   }
 
-  ResearchUpgrade(ResearchData:{Research}){
-    if(ResearchData.Research =="Speed"){
-      console.log("speed boost");
-      
+  ResearchUpgrade(ResearchData: { Research }) {
+    if (ResearchData.Research == "Speed") {
+      if ((this.TBMMaxSpeedLevel < 5) && (this.CheckResearchPrice(this.TBMMaxSpeedLevel) < this.money)) {
+        this.money -= this.CheckResearchPrice(this.TBMMaxSpeedLevel);
+        this.TBMMaxSpeedLevel += 1;
+        this.TBMUpgradeSpeedPrice = this.CheckResearchPrice(this.TBMMaxSpeedLevel);
+      }
+
     }
-    else if(ResearchData.Research =="Leaf"){
-      console.log("Leaf boost");
-      
+    else if (ResearchData.Research == "Leaf") {
+      if ((this.TBMMaxLeafLevel < 5) && (this.CheckResearchPrice(this.TBMMaxLeafLevel) < this.money)) {
+        this.money -= this.CheckResearchPrice(this.TBMMaxLeafLevel);
+        this.TBMMaxLeafLevel += 1;
+        this.TBMUpgradeLeafPrice = this.CheckResearchPrice(this.TBMMaxLeafLevel);
+      }
+
     }
-    else if(ResearchData.Research =="Filter"){
-      console.log("filter boost");
-      
+    else if (ResearchData.Research == "Filter") {
+      if ((this.TBMMaxFilterLevel < 5) && (this.CheckResearchPrice(this.TBMMaxFilterLevel) < this.money)) {
+        this.money -= this.CheckResearchPrice(this.TBMMaxFilterLevel);
+        this.TBMMaxFilterLevel += 1;
+        this.TBMUpgradeFilterPrice = this.CheckResearchPrice(this.TBMMaxFilterLevel);
+      }
+
     }
+  }
+
+  CheckResearchPrice(level: number) {
+    let price: number
+
+    switch (level) {
+      case 1:
+        price = 25;
+        break;
+      case 2:
+        price = 50;
+        break;
+      case 3:
+        price = 100;
+        break;
+      case 4:
+        price = 200;
+        break;
+    }
+
+    return price;
+
   }
 
   onBuyingTeaFilters(buyingFilterData: {}) {
@@ -140,7 +176,7 @@ export class TeaGameComponent implements OnInit {
     }
   }
 
-  onTeaBagMade(teaBagData: { teaBagsMade: number, LeafCost: number, FilterCost:number }) {
+  onTeaBagMade(teaBagData: { teaBagsMade: number, LeafCost: number, FilterCost: number }) {
 
     if ((this.TeaLeaves >= teaBagData.LeafCost) && (this.teaFilterPaper >= teaBagData.FilterCost)) {
       this.TeaBags += teaBagData.teaBagsMade;
@@ -156,9 +192,9 @@ export class TeaGameComponent implements OnInit {
 
     this.teaBagPrice += priceData.PriceChange
     this.teaBagPrice = Math.round(this.teaBagPrice * 100) / 100;
-    if(priceData.PriceChange > 0){
+    if (priceData.PriceChange > 0) {
       this.teaBagDemand -= 2;
-    }else{
+    } else {
       this.teaBagDemand += 2;
     }
 

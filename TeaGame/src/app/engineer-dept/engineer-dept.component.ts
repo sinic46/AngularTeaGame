@@ -9,7 +9,7 @@ export class EngineerDeptComponent implements OnInit {
 
   @Input('EngineerStats') EngineerStats: {
     autoTeaBagMakers: boolean
-    , TBMMaxSpeed: number
+    , TBMMaxSpeedLevel: number
     , TBMCreateSpeed: number
     , TBMUpgradeSpeedPrice: number
     , TBMMaxLeafLevel: number

@@ -8,6 +8,35 @@ import { interval, Subscription } from 'rxjs';
 })
 export class TeabagGeneratorsComponent implements OnInit {
 
+  @Output() teaBagCreated = new EventEmitter<{ teaBagsMade: number, LeafCost: number, FilterCost: number }>();
+  @Output() AlterMoney = new EventEmitter<{ Value: number }>();
+
+  @Input('EngineerStats') EngineerStats: {
+    autoTeaBagMakers: boolean
+
+    , TBMMaxSpeedLevel: number
+    , TBMCreateSpeed: number
+    , TBMUpgradeSpeedPrice: number
+    , TBMMaxLeafLevel: number
+    , TBMCreateLeafLevel: number
+    , TBMUpgradeLeafPrice: number
+    , TBMMaxFilterLevel: number
+    , TBMCreateFilterLevel: number
+    , TBMUpgradeFilterPrice: number
+  };
+
+  @Input('teaStats') teaStats: {
+    money: number
+    , teaBags: number
+    , teaBagPrice: number
+    , teaBagDemand: number
+    , teaLeaves: number
+    , teaLeafPrice: number
+    , teaFilterPaper: number
+    , teaFilterPaperPrice: number
+  };
+
+
   teaGenerators = [];
   GeneratorPrice: number = 50;
   subscription: Subscription;
@@ -26,34 +55,16 @@ export class TeabagGeneratorsComponent implements OnInit {
     this.SellTea();
   }
 
-  @Output() teaBagCreated = new EventEmitter<{ teaBagsMade: number, LeafCost: number, FilterCost: number }>();
-  @Output() AlterMoney = new EventEmitter<{ Value: number }>();
-
-  @Input('EngineerStats') EngineerStats: {
-    autoTeaBagMakers: boolean
-    , TBMMaxSpeed: number
-    , TBMCreateSpeed: number
-    , TBMMaxLeafLevel: number
-    , TBMCreateLeafLevel: number
-    , TBMMaxFilterLevel: number
-    , TBMCreateFilterLevel: number
-  };
-
-  @Input('teaStats') teaStats: {
-    money: number
-    , teaBags: number
-    , teaBagPrice: number
-    , teaBagDemand: number
-    , teaLeaves: number
-    , teaLeafPrice: number
-    , teaFilterPaper: number
-    , teaFilterPaperPrice: number
-  };
 
   CreateNewTeaBagGenerator() {
 
     if (this.teaStats.money > this.GeneratorPrice) {
-      this.teaGenerators.push({ name: "Auto bagga " + (this.teaGenerators.length + 1).toString(), TBPS: 1, LeavesUsed: 5, FiltersUsed: 4 })
+      this.teaGenerators.push({
+        name: "Auto bagga " + (this.teaGenerators.length + 1).toString()
+        , TBPS: 1, Speedlevel: this.EngineerStats.TBMCreateSpeed
+        , LeavesUsed: 5, LeafLevel: this.EngineerStats.TBMCreateLeafLevel
+        , FiltersUsed: 4, FilterLevel: this.EngineerStats.TBMCreateFilterLevel
+      })
       this.AlterMoney.emit({ Value: (this.GeneratorPrice * -1) });
     } else {
       console.log("generator failed");
@@ -85,4 +96,108 @@ export class TeabagGeneratorsComponent implements OnInit {
 
   }
 
+  upgradeSpeed(machine: { name: string, TBPS: number, Speedlevel: number, LeavesUsed: number, LeafLevel: number, FiltersUsed: number, FilterLevel: number }) {
+
+    let upgradePrice = this.getUpgradePrice(machine.Speedlevel)
+
+    if (this.teaStats.money >= upgradePrice) {
+      this.AlterMoney.emit({ Value: upgradePrice * -1 })
+      machine.Speedlevel += 1;
+      machine.TBPS += 1
+      console.log("upgrade complete");
+
+    } else {
+      console.log("upgrade failed");
+      console.log(this.teaStats.money + " - " + this.EngineerStats.TBMUpgradeSpeedPrice);
+    }
+
+
+  }
+
+  upgradeLeaf(machine: { name: string, TBPS: number, Speedlevel: number, LeavesUsed: number, LeafLevel: number, FiltersUsed: number, FilterLevel: number }) {
+
+    let upgradePrice = this.getUpgradePrice(machine.LeafLevel)
+
+    if (this.teaStats.money >= upgradePrice) {
+      this.AlterMoney.emit({ Value: upgradePrice * -1 })
+      machine.LeafLevel += 1;
+      machine.LeavesUsed -= 1
+      console.log("upgrade complete");
+
+    } else {
+      console.log("upgrade failed");
+      console.log(this.teaStats.money + " - " + this.EngineerStats.TBMUpgradeSpeedPrice);
+    }
+
+
+  }
+
+  upgradeFilter(machine: { name: string, TBPS: number, Speedlevel: number, LeavesUsed: number, LeafLevel: number, FiltersUsed: number, FilterLevel: number }) {
+    let upgradePrice = this.getUpgradePrice(machine.FilterLevel)
+    if (this.teaStats.money >= upgradePrice) {
+      this.AlterMoney.emit({ Value: upgradePrice * -1 })
+      machine.FilterLevel += 1;
+      machine.FiltersUsed -= 0.5
+      console.log("upgrade complete");
+    }
+  }
+
+
+  speedUpgradePossible(machine: { name: string, TBPS: number, Speedlevel: number, LeavesUsed: number, LeafLevel: number, FiltersUsed: number, FilterLevel: number }) {
+    if (this.EngineerStats.TBMMaxSpeedLevel > machine.Speedlevel) {
+      if (this.getUpgradePrice(machine.Speedlevel) <= this.teaStats.money) {
+        return false;
+      }
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  leafUpgradePossible(machine: { name: string, TBPS: number, Speedlevel: number, LeavesUsed: number, LeafLevel: number, FiltersUsed: number, FilterLevel: number }) {
+
+    if (this.EngineerStats.TBMMaxLeafLevel > machine.LeafLevel) {
+      if (this.getUpgradePrice(machine.LeafLevel) <= this.teaStats.money) {
+        return false;
+      }
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  filterUpgradePossible(machine: { name: string, TBPS: number, Speedlevel: number, LeavesUsed: number, LeafLevel: number, FiltersUsed: number, FilterLevel: number }) {
+
+    if (this.EngineerStats.TBMMaxFilterLevel > machine.FilterLevel) {
+      if (this.getUpgradePrice(machine.FilterLevel) <= this.teaStats.money) {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
+  getUpgradePrice(level: number) {
+
+    let price: number;
+
+    switch (level) {
+      case 1:
+        price = 25;
+        break;
+      case 2:
+        price = 50;
+        break;
+      case 3:
+        price = 100;
+        break;
+      case 4:
+        price = 200;
+        break;
+    }
+    return price;
+  }
+
+
 }
+

@@ -26,9 +26,9 @@
                         <hr>
                         <h5 class="d-flex justify-content-center">upgrades</h5>
                         <div class="btn-group d-flex justify-content-center" role="group">
-                            <button class="btn btn-outline-primary">Speed</button>
-                            <button class="btn btn-outline-primary">Leaves used</button>
-                            <button class="btn btn-outline-primary">filters used</button>
+                            <button class="btn btn-outline-primary" [disabled]="speedUpgradePossible(machine)" (click)="upgradeSpeed(machine)">Speed (£{{getUpgradePrice(machine.Speedlevel)}})</button>
+                            <button class="btn btn-outline-primary" [disabled]="leafUpgradePossible(machine)" (click)="upgradeLeaf(machine)">Leaves used (£{{getUpgradePrice(machine.LeafLevel)}})</button>
+                            <button class="btn btn-outline-primary" [disabled]="filterUpgradePossible(machine)" (click)="upgradeFilter(machine)">filters used (£{{getUpgradePrice(machine.FilterLevel)}})</button>
                         </div>
                     </div>
                 </div>
