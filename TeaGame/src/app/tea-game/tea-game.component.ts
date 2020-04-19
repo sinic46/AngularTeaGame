@@ -18,17 +18,17 @@ export class TeaGameComponent implements OnInit {
   teaBagDemand: number = 30;
   totalTeaBagsMade: number = 0;
 
-  TeaLeaves: number = 500;
+  TeaLeaves: number = 100;
   teaLeafPrice: number = 1.5;
 
-  teaFilterPaper: number = 30;
+  teaFilterPaper: number = 50;
   teaFilterPaperPrice: number = 0.5;
-  money: number = 100.00;
+  money: number = 0.00;
 
   /* system used variables */
 
   /* generator variables */
-  autoTeaBagMakers: boolean = true;
+  autoTeaBagMakers: boolean = false;
   TBMMaxSpeedLevel: number = 1
   TBMCreateSpeed: number = 1
   TBMUpgradeSpeedPrice: number = 25
@@ -36,12 +36,12 @@ export class TeaGameComponent implements OnInit {
   TBMMaxLeafLevel: number = 1
   TBMCreateLeafLevel: number = 1
   TBMUpgradeLeafPrice: number = 25
-  
+
   TBMMaxFilterLevel: number = 1
   TBMCreateFilterLevel: number = 1
   TBMUpgradeFilterPrice: number = 25
 
-  EngineerDept: boolean = true;
+  EngineerDept: boolean = false;
   MarketingDept: boolean = false;
 
 
